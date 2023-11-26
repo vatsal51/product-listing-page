@@ -13,20 +13,20 @@ const FilterComponent = ({ items, handleFilterChange, filter }) => {
         {filter}
         <span>{isExpanded ? "-" : "+"}</span>
       </h4>
-        <div className={`filter-items ${isExpanded ? "expanded" : ""}`}>
-          {items.map((item, index) => (
-            <div key={index}>
-              <input
-                type="checkbox"
-                id={`${item.name}${index}`}
-                value={item.name}
-                checked={item.checked}
-                onChange={() => handleFilterChange(index, item.type)}
-              />
-              <label htmlFor={`${item.name}${index}`}>{item.name}</label>
-            </div>
-          ))}
-        </div>
+      <div className={`filter-items ${isExpanded ? "expanded" : ""}`}>
+        {items.map((item, index) => (
+          <div key={index}>
+            <input
+              type="checkbox"
+              id={`${item.name}${index}`}
+              value={item.name}
+              checked={item.checked}
+              onChange={() => handleFilterChange(index, item.type)}
+            />
+            <label htmlFor={`${item.name}${index}`}>{item.name}</label>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

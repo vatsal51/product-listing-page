@@ -14,7 +14,7 @@ const ProductList = () => {
   const [categories, setCategories] = useState([]);
   const [brands, setBrands] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [selectedPriceRange, setSelectedPriceRange] = useState("");
+  // const [selectedPriceRange, setSelectedPriceRange] = useState("");
   // const productRef = useRef(null);
 
   useEffect(() => {
@@ -74,8 +74,8 @@ const ProductList = () => {
 
   // Filtering products based on selected category, brand, and price range
   const filterProducts = (product) => {
-    const isUnder100 = selectedPriceRange === "under100" && product.price < 100;
-    const isAbove100 = selectedPriceRange === "above100" && product.price >= 100;
+    // const isUnder100 = selectedPriceRange === "under100" && product.price < 100;
+    // const isAbove100 = selectedPriceRange === "above100" && product.price >= 100;
 
     return (
       (categories.every((category) => !category.checked) ||
@@ -83,11 +83,15 @@ const ProductList = () => {
           (category) => category.name === product.category && category.checked
         )) &&
       (brands.every((brand) => !brand.checked) ||
-        brands.some(
-          (brand) => brand.name === product.brand && brand.checked
-        )) &&
-      (selectedPriceRange === "" || isUnder100 || isAbove100)
+        brands.some((brand) => brand.name === product.brand && brand.checked))
+      //   &&
+      // (selectedPriceRange === "" || isUnder100 || isAbove100)
     );
+  };
+
+  // Function to handle change in sort type
+  const handleSortChange = (e) => {
+    setSortType(e.target.value);
   };
 
   const sortedAndFilteredProducts = () => {
@@ -126,10 +130,7 @@ const ProductList = () => {
     <div className="productContainer">
       {/*Filters section including Category and Brand filters*/}
       <div className="filters">
-      <b>Total Products: </b> ({products.length})
-
-
-        {/* Category filter */}
+        <b>Total Products: </b> ({products.length}){/* Category filter */}
         <div className="clearFilter">
           <h3>Filters</h3> <p onClick={clearAllFilters}>Clear Filters</p>{" "}
         </div>
@@ -143,9 +144,7 @@ const ProductList = () => {
             }
           />
         </div>
-
         {/* Brand filter */}
-
         <div className="Brands filterType">
           {/* <h4>Brands <span>-</span> </h4> */}
           <FilterComponent
@@ -157,14 +156,14 @@ const ProductList = () => {
       </div>
       <div className="productlistWrapper">
         <div className="categoryBanner">
-          <img 
+          <img
             src="https://picsum.photos/1920/400.webp"
             alt="Category Banner"
           ></img>
         </div>
         {/* Sorting options */}
         {/* Price range filter */}
-        
+
         <div className="priceSort">
           <label htmlFor="priceSort">Sort by: </label>
           {/* <select
@@ -176,15 +175,11 @@ const ProductList = () => {
             <option value="under100">Under $100</option>
             <option value="above100">Above $100</option>
           </select> */}
-           <select
-          name="priceSort"
-          value={sortType}
-          onChange={handleSortChange}
-        >
-          <option value="">Select</option>
-          <option value="lowToHigh">Low to High</option>
-          <option value="highToLow">High to Low</option>
-        </select>
+          <select name="priceSort" value={sortType} onChange={handleSortChange}>
+            <option value="">Select</option>
+            <option value="lowToHigh">Low to High</option>
+            <option value="highToLow">High to Low</option>
+          </select>
         </div>
         <div className="product-list">
           {/* Display sorted and filtered products */}
